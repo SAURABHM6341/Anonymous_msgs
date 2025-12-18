@@ -1,18 +1,52 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText, UIMessage, convertToModelMessages } from 'ai';
+import { streamText } from 'ai';
+import { groq } from '@/lib/groq';
 
-export async function POST(req: Request) {
-    try {
-        const prompt = "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction. For example, your output should be structured like this: 'What's a hobby you've recently started?||If you could have dinner with any historical figure, who would it be?||What's a simple thing that makes you happy?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.";
-    
-        const result = streamText({
-            model: openai('gpt-4-turbo'),
-            prompt: prompt,
-        });
-    
-        return result.toUIMessageStreamResponse();  
-    } catch (error) {
-        console.log("an error occured in ai route ", error);
-        throw error
-    }
+export async function POST() {
+  try {
+    const prompt =
+      "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform. Avoid personal or sensitive topics and focus on universal, friendly themes. Example format: 'What’s a hobby you’ve recently started?||If you could visit any place in the world, where would you go?||What’s a small thing that makes your day better?'";
+
+    const result = streamText({
+      model: groq('llama-3.1-8b-instant'),
+      prompt,
+      temperature: 0.8,
+    });
+
+    return result.toUIMessageStreamResponse();
+  } catch (error) {
+    console.error('Groq AI error:', error);
+    throw error;
+  }
 }
+
+
+// code for frontend ui as open ai key are paid we will use groq for free
+/*
+'use client';
+
+import { useChat } from 'ai/react';
+
+export default function Page() {
+  const { messages, handleSubmit, input, handleInputChange } =
+    useChat({
+      api: '/api/ai',
+    });
+
+  return (
+    <main style={{ padding: 20 }}>
+      <form onSubmit={handleSubmit}>
+        <button type="submit">Generate Questions</button>
+      </form>
+
+      <div style={{ marginTop: 20 }}>
+        {messages.map((m) => (
+          <div key={m.id}>
+            <strong>{m.role}:</strong> {m.content}
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+}
+
+*/
