@@ -52,6 +52,7 @@ const page = () => {
     if(result?.url){
       router.replace('/dashboard')
     }
+    setisFormSubmitting(false);
   }
 
   return (

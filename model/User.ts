@@ -6,7 +6,7 @@ export interface Message extends Document {
 }
 // message ke liye ek interface banaya hai jo  Document se extend karta hai means mongoose me yeh ek document hoga
 //niche hamne message schema bnaya h means we are creating schema and data type is message
-const MessageSchema : Schema<Message> = new Schema({ //here hum schema define kar rahe hain jisme humne usko schema type diya h jo messaege interface se match karta hai
+export const MessageSchema : Schema<Message> = new Schema({ //here hum schema define kar rahe hain jisme humne usko schema type diya h jo messaege interface se match karta hai
     content: {
         type: String,  //javascript me string type define karne ke liye hum "String" use karte hain aur typescript me string ko "string" likhte hain
         required: true
