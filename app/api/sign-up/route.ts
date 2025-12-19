@@ -13,8 +13,9 @@ export async function POST(request: Request) {
 
         // Validate with Zod
         const validation = signupSchema.safeParse(body);
-
+        console.log("Validation result:", validation);
         if (!validation.success) {
+            // console.error("Validation error in sign-up route:", validation.error.format());
             return Response.json(
                 {
                     success: false,
@@ -72,6 +73,10 @@ export async function POST(request: Request) {
                     }, { status: 500 })
                 }
                 await existingUserbyEmail.save();
+                return Response.json({
+                    success: true,
+                    message: "User details updated successfully, please verify email, verification code sent again"
+                })
             }
             
         }
