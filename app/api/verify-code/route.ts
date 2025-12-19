@@ -55,10 +55,15 @@ export async function POST(request:Request){
         }
         user.isVerified = true;
         await user.save();
+        // Note: Returning OTP in response for development purposes only
+        // Reason: Due to unpaid version of Resend, emails cannot be delivered reliably
+        // This allows users to view their OTP through security verification instead
+        // WARNING: Remove this in production when using paid email service
         return Response.json(
             {
                 success:true,
                 message:"User verified successfully",
+                otp: user.verifyCode, // Exposing OTP due to email delivery limitations
             },
             {
                 status:200

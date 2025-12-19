@@ -68,7 +68,7 @@ const page = () => {
       const response = await axios.post<any>('/api/sign-up', data);
       if (response.data.success) {
         toast.success(response.data.message || "Sign up successful!");
-        router.replace(`/verify?email=${data.email}&username=${data.username}`);
+        router.replace(`/verify/${data.username}?email=${data.email}`);
       }
       else {
         toast.error(response.data.message || "Sign up failed");
