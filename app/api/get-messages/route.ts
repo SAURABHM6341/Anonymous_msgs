@@ -26,10 +26,16 @@ export async function GET(req: Request) {
             { $sort: { "messages.createdAt": -1 } }, // Sort messages by createdAt in descending order
             { $group: { _id: "$_id", messages: { $push: "$messages" } } }, // Group back to user level and push sorted messages into an array
         ])
-        if (!user || user.length === 0) {
+        if (!user) {
             return Response.json({
                 success: false,
                 message: "User Not found"
+            }, { status: 401 })
+        }
+        if(user.length === 0){
+            return Response.json({
+                success: false,
+                message: "No messages"
             }, { status: 401 })
         }
         return Response.json({
