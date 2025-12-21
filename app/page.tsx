@@ -1,65 +1,116 @@
-import Image from "next/image";
+"use client"
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import messages from '@/app/messages.json'
+import Autoplay from "embla-carousel-autoplay"
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
+  const [username,setusername] = useState('');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setusername(e.target.value);
+  }
+  const handleSubmit = () => {
+    window.location.href = `/u/${username}`;
+  }
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <main className="grow flex flex-col items-center justify-center px-4 md:px-24 py-12 " >
+        <section className="text-center mb-8 md:mb-12" >
+          <h1 className="text-3xl md:text-5xl font-bold">Want to Know what really, People think about you?</h1>
+          <p className="mt-3 md:mt-4 text-base md:text-lg" >Explore Anonymous Msgs - Message Anonymously to anyone</p>
+        </section>
+        <Carousel
+          plugins={[Autoplay({ delay: 2000 })]}
+          className="w-[320px] max-w-sm"
+        >
+          <CarouselContent>
+            {messages.map((msg, index) => (
+              <CarouselItem key={index}>
+                <div className="p-2">
+                  <Card className="border border-gray-200 shadow-sm rounded-xl bg-white">
+                    <CardContent >
+
+                      {/* Header */}
+                      <CardHeader className="p-0 mb-3">
+                        <h3 className="text-base font-semibold text-gray-900">
+                          {msg.title}
+                        </h3>
+                      </CardHeader>
+
+                      {/* Message row */}
+                      <div className="flex items-start gap-3">
+                        {/* Icon */}
+                        <div className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 text-gray-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5H4.5A2.25 2.25 0 002.25 6.75m19.5 0l-9.75 6.75L2.25 6.75"
+                            />
+                          </svg>
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex flex-col">
+                          <p className="text-sm text-gray-800  font-bold leading-snug">
+                            {msg.content}
+                          </p>
+                          <span className="mt-1 text-xs text-gray-500">
+                            {msg.received}
+                          </span>
+                        </div>
+                      </div>
+
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          {/* Controls */}
+          <CarouselPrevious className="text-gray-700 border-gray-300 hover:bg-gray-100" />
+          <CarouselNext className="text-gray-700 border-gray-300 hover:bg-gray-100" />
+        </Carousel>
+            <div className="mt-8 w-full max-w-md bg-white rounded-lg shadow-md p-6 border border-gray-200">
+              <Label htmlFor="usernameField" className="text-lg font-semibold text-gray-800">
+                Type Username to Send Message
+              </Label>
+              <Input 
+                id="usernameField"
+                onChange={handleChange} 
+                type="text" 
+                placeholder="Enter username to send message" 
+                value={username}
+                className="mt-3 h-12 text-base"
+              />
+              <Link href={`/u/${username}`} className="block">
+                <Button className="mt-4 w-full h-12 text-base font-semibold" disabled={!username}>
+                  Go to Messaging Page
+                </Button>
+              </Link>
+            </div>
       </main>
-    </div>
-  );
+
+    </>
+  )
 }
+export default Home
