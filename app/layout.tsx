@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Navbar/>
-          <main className="flex-grow">
+          <main className="grow">
             {children}
           </main>
           <Footer />

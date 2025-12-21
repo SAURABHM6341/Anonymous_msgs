@@ -128,7 +128,7 @@ const dashBoard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+        <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-8">
             <div className="container mx-auto px-4 md:px-8 max-w-6xl">
                 {/* Header Section */}
                 <div className="mb-8">
@@ -153,7 +153,7 @@ const dashBoard = () => {
                         />
                         <Button 
                             onClick={copyToClipBoard}
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8"
+                            className="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8"
                         >
                             Copy Link
                         </Button>

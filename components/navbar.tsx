@@ -14,7 +14,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4 md:px-6 py-4">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                     {/* Logo */}
-                    <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all">
+                    <Link href="/" className="text-2xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all">
                         Anonymous Messages
                     </Link>
 
@@ -31,7 +31,7 @@ const Navbar = () => {
                                     </Button>
                                 </Link>
                                 <Button 
-                                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                                    className="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                                     onClick={() => signOut()}
                                 >
                                     Logout
@@ -45,7 +45,7 @@ const Navbar = () => {
                                     </Button>
                                 </Link>
                                 <Link href='/sign-in'>
-                                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                                    <Button className="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                                         Login
                                     </Button>
                                 </Link>
