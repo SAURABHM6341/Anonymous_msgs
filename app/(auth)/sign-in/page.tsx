@@ -38,21 +38,29 @@ const page = () => {
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     console.log(data);
     setisFormSubmitting(true);
-    const result  = await signIn('credentials', {
-      identifier: data.identifier,
-      password: data.password,
-      redirect: false,
-    })
-    console.log("SignIn Result: ", result);
-    if(result?.error){
-      toast.error(result.error);
+    try {
+      const result = await signIn('credentials', {
+        identifier: data.identifier,
+        password: data.password,
+        redirect: false,
+      })
+      console.log("SignIn Result: ", result);
+      
+      if (result?.error) {
+        toast.error(result.error);
+        setisFormSubmitting(false);
+        return;
+      }
+      
+      if (result?.ok) {
+        toast.success("Signed in successfully!");
+        router.push('/dashboard');
+      }
+    } catch (error) {
+      console.error("Sign in error:", error);
+      toast.error("An error occurred during sign in");
       setisFormSubmitting(false);
-      return;
     }
-    if(result?.url){
-      router.replace('/dashboard')
-    }
-    setisFormSubmitting(false);
   }
 
   return (

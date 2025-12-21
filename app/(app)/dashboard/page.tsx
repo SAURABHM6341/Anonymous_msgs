@@ -51,17 +51,19 @@ const dashBoard = () => {
         setIsLoading(true);
         setIsSwitchLoading(false);
         try {
+            toast.loading("Showing Latest Messages");
             const response = await axios.get<ApiResponse>('/api/get-messages');
             if (!response.data.success) {
+                toast.dismiss()
                 toast.error(response.data.message || "failed to fetch messages")
             } else {
                 setMessages(response.data.messages || []);
-                if (refresh) {
-                    toast.loading("Showing Latest Messages");
-                }
+                toast.dismiss()
+                toast.success("Messages Fetched Successfully");
             }
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
+            toast.dismiss()
             toast.error(axiosError.response?.data.message || "Failed to fetch Messages");
         }
         finally {
