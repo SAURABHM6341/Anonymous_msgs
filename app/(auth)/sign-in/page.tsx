@@ -54,7 +54,9 @@ const page = () => {
       
       if (result?.ok) {
         toast.success("Signed in successfully!");
-        router.push('/dashboard');
+        setisFormSubmitting(false);
+        router.replace('/dashboard');
+        window.location.href = '/dashboard';
       }
     } catch (error) {
       console.error("Sign in error:", error);
