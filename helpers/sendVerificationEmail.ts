@@ -16,13 +16,13 @@ export async function sendVerificationEmail(
         });
         return {
             success: true,
-            api_message: `Verification email sent successfully to ${email}.`
+            message: `Verification email sent successfully to ${email}.`
         }
     } catch (error) {
         console.error("Error sending verification email:", error);
         return {
             success: false,
-            api_message: "Failed to send verification email."
+            message: "Failed to send verification email."
         }
     }
 }
